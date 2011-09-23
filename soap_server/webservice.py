@@ -1,8 +1,9 @@
 from soaplib.core.service import DefinitionBase, soap
-from soaplib.core.model.primitive import String
-from soaplib.core.model.primitive import Integer
+from soaplib.core.model.primitive import String, Integer, Any
+from xml.dom import minidom
 
 from futebol.service.models import XmlEvent
+
 
 class WebService(DefinitionBase):
     '''
@@ -20,7 +21,16 @@ class WebService(DefinitionBase):
     def hello_soap_world(self, name):
         return "Hello, %s!" % name
     
-    @soap(Integer, _returns=Integer)
+    @soap(Integer, _returns=Any)
     def get_events(self, last_id):
-        XmlEvent.objects.get
-        return last_id
+        dir(last_id)
+        events = XmlEvent.objects.filter(id__gt=last_id)
+        data = "<events>"
+        for event in events:
+            data += "<event>"    
+            data += "<id>" + str(event.id) + "</id>"
+            data_doc = minidom.parseString(event.data))
+#            data += "<data>" +  + "</data>"
+            data += "</event>"
+        data += "</events>"
+        return data
