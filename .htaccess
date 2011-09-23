@@ -1,0 +1,8 @@
+#SetHandler python-program
+#PythonPath "['/home/ivan/tv-digital/django-server/env/bin', '/home/ivan/tv-digital/django-#server/'] + sys.path"
+#PythonHandler django.core.handlers.modpython
+#PythonHandler myvirtualdjango
+#PythonHandler django.core.handlers.wsgi
+#SetEnv DJANGO_SETTINGS_MODULE futebol.settings
+#PythonOption django.root /futebol
+#PythonDebug On
