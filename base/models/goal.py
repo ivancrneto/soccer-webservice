@@ -1,4 +1,6 @@
 import json
+import time
+import datetime
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -47,6 +49,9 @@ def create_goal_event(sender, **kwargs):
         #saving in xml format
         doc = minidom.Document()
         event = doc.createElement('event')
+        evttimestamps = doc.createElement('timestamps')
+        evttimestamps.appendChild(doc.createTextNode('%s' % int(time.mktime(datetime.datetime.now().timetuple()))))
+        event.appendChild(evttimestamps)
         evtype = doc.createElement('type')
         evtype.appendChild(doc.createTextNode('goal'))
         event.appendChild(evtype)

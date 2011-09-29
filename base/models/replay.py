@@ -1,4 +1,6 @@
 import json
+import time
+import datetime
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -49,6 +51,9 @@ def create_replay_event(sender, **kwargs):
         evtype = doc.createElement('type')
         evtype.appendChild(doc.createTextNode('replay'))
         event.appendChild(evtype)
+        evttimestamps = doc.createElement('timestamps')
+        evttimestamps.appendChild(doc.createTextNode('%s' % int(time.mktime(datetime.datetime.now().timetuple()))))
+        event.appendChild(evttimestamps)
         data = doc.createElement('data')
         game_id = doc.createElement('game_id')
         game_id.appendChild(doc.createTextNode('%s' % replay.game.id))

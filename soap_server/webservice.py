@@ -29,8 +29,13 @@ class WebService(DefinitionBase):
         for event in events:
             data += "<event>"    
             data += "<id>" + str(event.id) + "</id>"
-            data_doc = minidom.parseString(event.data))
-#            data += "<data>" +  + "</data>"
+            data_doc = minidom.parseString(event.data.encode('utf-8'))
+            type_tag = data_doc.getElementsByTagName("type")
+            timestamps_tag = data_doc.getElementsByTagName("timestamps")
+            data += timestamps_tag[0].toxml()
+            data += type_tag[0].toxml()
+            event_data = data_doc.getElementsByTagName("data")
+            data += event_data[0].toxml()
             data += "</event>"
         data += "</events>"
         return data

@@ -4,7 +4,9 @@ from django.db import models
 
 class JsonEvent(models.Model):
     data = models.TextField()
+
     
 
 class XmlEvent(models.Model):
     data = models.TextField()
+
